@@ -8,6 +8,7 @@ public class BinaryTree {
 
     public void printPreorder() {
         printPreorder(root);
+        System.out.println();
     }
 
     private void printPreorder(TreeNode node) {
@@ -20,25 +21,27 @@ public class BinaryTree {
 
     public void printInorder() {
         printInorder(root);
+        System.out.println();
     }
 
     private void printInorder(TreeNode node) {
         if (node != null) {
-            System.out.print(node.value + " ");
             printInorder(node.left);
+            System.out.print(node.value + " ");
             printInorder(node.right);
         }
     }
 
     public void printPostorder() {
         printPostorder(root);
+        System.out.println();
     }
 
     private void printPostorder(TreeNode node) {
         if (node != null) {
-            System.out.print(node.value + " ");
             printPostorder(node.left);
             printPostorder(node.right);
+            System.out.print(node.value + " ");
         }
     }
 
@@ -92,5 +95,81 @@ public class BinaryTree {
             return contains(value, node.right);
         else // (value == node.value)
             return true;
+    }
+
+    public void insert(int value) {
+        if (root == null)
+            root = new TreeNode(value);
+        insert(value, root);
+    }
+
+    private void insert(int value, TreeNode node) {
+        if (value < node.value) {
+            if (node.left != null)
+                insert(value, node.left);
+            else
+                node.left = new TreeNode(value);
+        } else if (value > node.value) {
+            if (node.right != null)
+                insert(value, node.right);
+            else
+                node.right = new TreeNode(value);
+        }
+        //永远是插入到最底下，重复就不插入了
+    }
+
+    public void delete(int value) {
+        //find the node
+        var nodeParent = root;
+        TreeNode node = null;
+        while (true) {
+            if (nodeParent == null)
+                return;
+            if (nodeParent.left!=null&&nodeParent.left.value == value) {
+                node = nodeParent.left;
+                break;
+            }
+            if (nodeParent.right!=null&&nodeParent.right.value == value) {
+                node = nodeParent.right;
+                break;
+            }
+            if (value < nodeParent.value)
+                nodeParent = nodeParent.left;
+            else //if (value > nodeParent.value)
+                nodeParent = nodeParent.right;
+        }
+        if (node.left == null && node.right == null) {
+            if (nodeParent.left == node) {
+                nodeParent.left = null;
+            } else if (nodeParent.right == node) {
+                nodeParent.right = null;
+            }
+        } else if (node.left != null && node.right != null) {
+            var nodeMin = node.right;
+            var nodeMinParent = node;
+            while (nodeMin.left != null) {
+                nodeMinParent = nodeMin;
+                nodeMin = nodeMin.left;
+            }
+            if (nodeMinParent.left == nodeMin)
+                nodeMinParent.left = null;
+            else if (nodeMinParent.right == nodeMin)
+                nodeMinParent.right = null;
+            node.value = nodeMin.value;
+        } else {
+            if (node.left != null) {
+                if (nodeParent.left == node) {
+                    nodeParent.left = node.left;
+                } else if (nodeParent.right == node) {
+                    nodeParent.right = node.left;
+                }
+            } else if (node.right != null) {
+                if (nodeParent.left == node) {
+                    nodeParent.left = node.right;
+                } else if (nodeParent.right == node) {
+                    nodeParent.right = node.right;
+                }
+            }
+        }
     }
 }

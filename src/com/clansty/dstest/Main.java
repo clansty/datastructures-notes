@@ -5,24 +5,29 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        var q = new MyQueue();
-        q.print();
-        for (int i = 0; i < 10; i++) {
-            q.enqueue(i);
+        var t=new BinaryTree();
+        var r=new Random();
+        for (int i = 0; i < 1000; i++) {
+            t.insert(r.nextInt(20));
         }
-        q.print();
-        for (int i = 0; i < 3; i++) {
-            System.out.println(q.dequeue());
-        }
-        q.print();
-        for (int i = 0; i < 3; i++) {
-            q.enqueue(i);
-        }
-        q.print();
-        for (int i = 0; i < 10; i++) {
-            q.dequeue();
-        }
-        q.print();
+        t.printPreorder();
+        t.printInorder();
+        t.printPostorder();
+        System.out.println(t.contains(20));
+        System.out.println(t.contains(10));
+        t.insert(-1);
+        t.insert(55);
+        t.printInorder();
+        t.delete(5);
+        t.delete(10);
+        t.delete(15);
+        t.delete(20);
+        t.printInorder();
+        t.insert(10);
+        t.printInorder();
+        System.out.println(t.findMin());
+        System.out.println(t.findMax());
+
     }
 
     static void arrayListBenchmark() {
