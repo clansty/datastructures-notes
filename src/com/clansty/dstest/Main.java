@@ -5,29 +5,22 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        var t=new BinaryTree();
-        var r=new Random();
-        for (int i = 0; i < 1000; i++) {
-            t.insert(r.nextInt(20));
-        }
-        t.printPreorder();
-        t.printInorder();
-        t.printPostorder();
-        System.out.println(t.contains(20));
-        System.out.println(t.contains(10));
-        t.insert(-1);
-        t.insert(55);
-        t.printInorder();
-        t.delete(5);
-        t.delete(10);
-        t.delete(15);
-        t.delete(20);
-        t.printInorder();
-        t.insert(10);
-        t.printInorder();
-        System.out.println(t.findMin());
-        System.out.println(t.findMax());
-
+        var t=new HashTable();
+        System.out.println(t.get(1));
+        t.set(1,2);
+        t.set(23333,66666);
+        t.set(13,3);
+        t.set(26,4);
+        System.out.println(t.get(1));
+        System.out.println(t.get(23333));
+        System.out.println(t.get(13));
+        System.out.println(t.get(26));
+        t.delete(26);
+        System.out.println(t.get(13));
+        System.out.println(t.get(26));
+        t.delete(13);
+        System.out.println(t.get(13));
+        System.out.println(t.get(26));
     }
 
     static void arrayListBenchmark() {
